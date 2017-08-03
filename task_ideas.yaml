@@ -1,0 +1,93 @@
+---
+# Tasks Research:
+
+
+# selinux
+# http://docs.ansible.com/ansible/latest/selinux_module.html
+# https://people.centos.org/arrfab/Events/Loadays-2014/managing%20selinux%20with%20your%20cfgmgmt%20solution.pdf
+- selinux:
+	state: disabled
+
+
+
+- hostname:
+    name: "{{ item }}" 
+  with_items:
+    - "{{ inventory_hostname }}"
+
+{{ ansible_default_ipv4.interface }}   # This is the 'main' interface for a given host, How does the host set a primary interface?
+
+
+# adding network devices
+# url: http://docs.ansible.com/ansible/latest/nmcli_module.html
+# the example had 3 networks, external, tenant, and storage
+---
+#group_vars or global vars
+# can i do this?  the known is that gateway is is not in host_vars, but a 'global' vars
+gateway:
+  - storage_gw:
+    ip: "ip_address"
+  - external_gw:
+    ip: "ip_address"
+  - tenant_gw:
+    ip: "ip_address"
+host_vars:
+  ethernet:
+    # tenant
+    - conn_name: eth0
+      ifname: eth0
+      ip4: "{{ tenant_ip }}"
+      gw4: "{{ gateway.tenant_gw }}"
+    # external
+    - conn_name: eth1
+      ifname: eth1
+      ip4: "{{ external_ip }}"
+      gw4: "{{ gateway.external_gw }}"
+    # storage
+    - conn_name: eth2
+      ifname: eth2
+      ip4: "{{ storage_ip }}"
+      gw4: "{{ gateway.storage_gw }}"
+
+
+
+# this will add all 3 of the above values so long as the ip4 value is set from the inventory.
+- name: nmcli add Ethernet - conn_name only & ip4 gw4
+  nmcli:
+    type: ethernet
+    conn_name: '{{ item.conn_name }}'
+    ip4: '{{ item.ip4 }}'
+    gw4: '{{ item.gw4 }}'
+    state: present
+  with_items:
+    - '{{ host_vars.ethernet }}'
+  when: item.ip4 is defined      # note: 'is defined' a part of the jinja2 lib can be 'is undefined'
+
+
+- name: nmcli remove Ethernet - conn_name
+  nmcli:
+    type: ethernet
+    conn_name: '{{ item.conn_name }}'
+    state: absent
+  with_items:
+    - '{{ host_vars.ethernet }}'
+  when: item.ip4 is defined
+
+
+# now we want to ping the gateway, ping module is not icmp, it tests ssh access really
+# lets use the shell module
+# url: http://docs.ansible.com/ansible/latest/shell_module.html
+- name: On the remote hosts ping the external gateways
+  shell: ping -c 2 {{ item.ip|quote }}
+  with_items:
+    - '{{ gateway }}'
+  when: item.ip is defined
+
+
+
+# install firefox via yum
+ansible compute -b -a "yum -y install epel-release"     # without module yum
+ansible compute -b -a "cat /etc/yum.repos.d/epel.repo"  # no enabled
+ansible compute -b -a "yum -y erase epel-release"       # without module yum
+
+

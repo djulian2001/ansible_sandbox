@@ -1,0 +1,18 @@
+---
+# tasks file for sandy.init
+- hostname:
+    name: "{{ item }}"
+  with_items: "{{ inventory_hostname }}"
+
+# install dependencies
+
+- name: nmcli add Ethernet - conn_name only & ip4 gw4
+  nmcli:
+    type: ethernet
+    conn_name: '{{ item.conn_name }}'
+    ip4: '{{ item.ip4 }}'
+    gw4: '{{ item.gw4 }}'
+    state: present
+  with_items:
+    - '{{ ethernet }}'
+  when: item.ip4 is defined

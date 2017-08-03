@@ -1,0 +1,20 @@
+---
+# vars file for sandy.init
+
+host_vars:
+  ethernet:
+    # tenant
+    - conn_name: msup0
+      ifname: msup0
+      ip4: "{{ tenant_ip }}"
+      gw4: "{{ gateway.tenant_gw }}"
+    # external
+    - conn_name: msup1
+      ifname: msup1
+      ip4: "{{ external_ip }}"
+      gw4: "{{ gateway.external_gw }}"
+    # storage
+    - conn_name: msup2
+      ifname: msup2
+      ip4: "{{ storage_ip }}"
+      gw4: "{{ gateway.storage_gw }}"
