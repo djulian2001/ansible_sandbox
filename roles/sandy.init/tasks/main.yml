@@ -5,6 +5,12 @@
   with_items: "{{ inventory_hostname }}"
 
 # install dependencies
+- name: install needed network manager libs
+  yum:
+    name: '{{ item }}'
+    state: present
+  with_items:
+    - "{{ yum_packages }}"
 
 - name: nmcli add Ethernet - conn_name only & ip4 gw4
   nmcli:
@@ -13,6 +19,7 @@
     ip4: '{{ item.ip4 }}'
     gw4: '{{ item.gw4 }}'
     state: present
+    autoconnect: yes
   with_items:
     - '{{ ethernet }}'
   when: item.ip4 is defined

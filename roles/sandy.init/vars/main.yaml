@@ -1,0 +1,30 @@
+---
+# vars file for sandy.init
+gateway:
+  storage_gw: "192.168.70.1"
+  external_gw: "192.168.80.1"
+  tenant_gw: "192.168.90.1"
+
+ethernet:
+  # tenant
+  - conn_name: msup0
+    ifname: msup0
+    ip4: "{{ tenant_ip }}"
+    gw4: "{{ gateway.tenant_gw }}"
+  # external
+  - conn_name: msup1
+    ifname: msup1
+    ip4: "{{ external_ip }}"
+    gw4: "{{ gateway.external_gw }}"
+  # storage
+  - conn_name: msup2
+    ifname: msup2
+    ip4: "{{ storage_ip }}"
+    gw4: "{{ gateway.storage_gw }}"
+
+yum_packages:
+  - NetworkManager-glib
+  # - libnm-qt-devel.x86_64
+  - nm-connection-editor.x86_64
+  - libsemanage-python
+  - policycoreutils-python
