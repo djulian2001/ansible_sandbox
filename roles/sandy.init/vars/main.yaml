@@ -7,24 +7,24 @@ gateway:
 
 ethernet:
   # tenant
-  - conn_name: msup0
-    ifname: msup0
+  - conn_name: tenant
+    ifname: eth4
     ip4: "{{ tenant_ip }}"
     gw4: "{{ gateway.tenant_gw }}"
   # external
-  - conn_name: msup1
-    ifname: msup1
+  - conn_name: external
+    ifname: eth3
     ip4: "{{ external_ip }}"
     gw4: "{{ gateway.external_gw }}"
   # storage
-  - conn_name: msup2
-    ifname: msup2
+  - conn_name: storage
+    ifname: eth2
     ip4: "{{ storage_ip }}"
     gw4: "{{ gateway.storage_gw }}"
 
 yum_packages:
   - NetworkManager-glib
   # - libnm-qt-devel.x86_64
-  - nm-connection-editor.x86_64
-  - libsemanage-python
-  - policycoreutils-python
+  # - nm-connection-editor.x86_64
+  # - libsemanage-python
+  # - policycoreutils-python

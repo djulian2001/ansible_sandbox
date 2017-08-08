@@ -1,2 +1,9 @@
 ---
 # handlers file for sandy.init
+- name: restart interfaces
+  service: 
+    name: network
+    state: restarted
+  #   args: "{{ item.ifname }}"
+  # with_items:
+  #   - "{{ ethernet }}"

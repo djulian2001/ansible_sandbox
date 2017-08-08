@@ -12,14 +12,40 @@
   with_items:
     - "{{ yum_packages }}"
 
+
+# - shell: nmcli con show
+#   register: nmcli_output
+
+# - debug:
+#     var: nmcli_output
+
+
+- name: print default variable
+  debug:
+    var: base_interface
+
+- name: print variables ethernet
+  debug: 
+    var: ethernet
+    verbosity: 3
+
+# issues here for some reason 
+
+# alias 
 - name: nmcli add Ethernet - conn_name only & ip4 gw4
   nmcli:
     type: ethernet
-    conn_name: '{{ item.conn_name }}'
+    conn_name: '{{ item.ifname }}:{{ item.conn_name }}'     # This will be the name of the file
+    ifname: '{{ item.ifname }}'
     ip4: '{{ item.ip4 }}'
+    # ip4: '{{ ansible_host }}'
     gw4: '{{ item.gw4 }}'
     state: present
     autoconnect: yes
   with_items:
     - '{{ ethernet }}'
   when: item.ip4 is defined
+  notify: restart interfaces
+
+# configure a service restart using the handlers
+#  add notify:  label_space to the roles handlers
