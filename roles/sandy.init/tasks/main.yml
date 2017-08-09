@@ -38,12 +38,28 @@
     ifname: '{{ item.ifname }}'
     ip4: '{{ item.ip4 | ipaddr }}'
     gw4: '{{ item.gw4 | ipaddr }}'
+    # dns4:
+    #   - '{{ dns_internal | ipaddr }}'
+    #   - '{{ dns_external | ipaddr }}'
     state: present
     autoconnect: yes
   with_items:
     - '{{ ethernet }}'
   when: item.ip4 is defined
   notify: restart interfaces
+
+- name: nmcli add dns servers to ethernet connections
+  nmcli:
+    type: ethernet
+    conn_name: '{{ item.ifname }}:{{ item.conn_name }}'
+    dns4:
+      - '{{ dns.internal | ipaddr }}'
+      - '{{ dns.external | ipaddr }}'
+    state: present
+  ignore_errors: yes
+  with_items:
+    - "{{ ethernet }}"
+
 
 # configure a service restart using the handlers
 #  add notify:  label_space to the roles handlers

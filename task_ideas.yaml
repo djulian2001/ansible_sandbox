@@ -91,7 +91,9 @@ ansible compute -b -a "cat /etc/yum.repos.d/epel.repo"  # no enabled
 ansible compute -b -a "yum -y erase epel-release"       # without module yum
 
 
+# install 2 instances of drupal ...
 
+# added bonus rancher docker drupal install
 
 
 
