@@ -1,0 +1,7 @@
+---
+# playbook to kick of the controller role
+# odd behavior, when running this role in the init.yaml playbook, it failed first run, second run passed.
+- hosts: controller
+  become: true
+  roles:
+    - sandy.controller

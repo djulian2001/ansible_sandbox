@@ -12,7 +12,6 @@
   with_items:
     - "{{ yum_packages }}"
 
-
 # - shell: nmcli con show
 #   register: nmcli_output
 
@@ -37,9 +36,9 @@
     type: ethernet
     conn_name: '{{ item.ifname }}:{{ item.conn_name }}'     # This will be the name of the file
     ifname: '{{ item.ifname }}'
-    ip4: '{{ item.ip4 }}'
+    ip4: '{{ item.ip4 | ipaddr }}'
     # ip4: '{{ ansible_host }}'
-    gw4: '{{ item.gw4 }}'
+    gw4: '{{ item.gw4 | ipaddr }}'
     state: present
     autoconnect: yes
   with_items:

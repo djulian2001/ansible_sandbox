@@ -1,3 +1,4 @@
 ---
 # play_all.yaml
+- include: init_controller.yaml
 - include: init.yaml

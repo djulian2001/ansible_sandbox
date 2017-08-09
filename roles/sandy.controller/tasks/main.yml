@@ -1,0 +1,10 @@
+---
+# tasks file for sandy.controller
+- name: install pip modules on ansible controller
+  pip:
+    name: "{{ item.name }}"
+    state: present
+    # state: absent
+    # version: "{{ item.version }}"
+  with_items:
+    - "{{ pip_packages }}"

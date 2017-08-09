@@ -1,7 +1,6 @@
 ---
 # init.yaml
 # the sandbox tasks reference README.md
-
 - hosts: all
   become: true
   gather_facts: true

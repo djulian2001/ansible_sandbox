@@ -1,0 +1,36 @@
+---
+init_version: "0.0.2"
+
+# gateways
+# gateway:
+#   - storage_gw:
+#     ip: "192.168.70.1"
+#   - external_gw:
+#     ip: "192.168.80.1"
+#   - tenant_gw:
+#     ip: "192.168.90.1"
+
+storage_gw: "192.168.70.1"
+external_gw: "192.168.80.1"
+tenant_gw: "192.168.90.1"
+
+# # nmcli test eths
+# ethernet:
+#   # tenant
+#   - conn_name: msup0
+#     ifname: msup0
+#     ip4: "{{ tenant_ip }}"
+#     gw4: "{{ tenant_gw }}"
+#     # gw4: "{{ gateway.tenant_gw.ip }}"
+#   # external
+#   - conn_name: msup1
+#     ifname: msup1
+#     ip4: "{{ external_ip }}"
+#     gw4: "{{ external_gw }}"
+#     # gw4: "{{ gateway.external_gw.ip }}"
+#   # storage
+#   - conn_name: msup2
+#     ifname: msup2
+#     ip4: "{{ storage_ip }}"
+#     gw4: "{{ storage_gw }}"
+#     # gw4: "{{ gateway.storage_gw.ip }}"
