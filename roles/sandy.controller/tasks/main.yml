@@ -5,6 +5,8 @@
     name: "{{ item.name }}"
     state: present
     # state: absent
-    # version: "{{ item.version }}"
+    version: "{{ item.version }}"
+      # versions becomes important for ci cd, specific to application deployment 
+    # virtualenv: # if needed reference pip module for the details
   with_items:
     - "{{ pip_packages }}"

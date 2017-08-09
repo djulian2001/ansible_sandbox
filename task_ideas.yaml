@@ -91,3 +91,37 @@ ansible compute -b -a "cat /etc/yum.repos.d/epel.repo"  # no enabled
 ansible compute -b -a "yum -y erase epel-release"       # without module yum
 
 
+
+
+
+
+# Interesting Ansible modules for RC:
+# xenserver_facts
+- name: gather the facts from the xen api
+  xenserver:
+    # this module is kinda lacking
+- name: using debug print the "xs_vms" dictionary
+    # no registering required
+
+# ipmi modules
+- name: ipmi set the boot order on a remote machine
+  ipmi_boot:
+    boot_dev: "{{ item.boot_with }}"  # select 1 of [network, hd, safe, optical, setup, default]
+    name: "{{ ipmi_host }}"           # probably best set in from inventory variable
+    user: "{{ item.user }}"           # the user name coresponding to the password
+    password: "{{ item.pw }}"         # set in the secrets ansible vault file
+    persistent: yes or no             # NO Consistent between systems
+    port: "{{ ipmi_host_port }}"      # probably best set in from inventory variable
+    state: present                    # ansible standard interface
+    uefiboot: yes or no               # UEFI the modern bios, activate yes/no
+  with_items:
+    - '{{ ipmi_settings }}'           # set in the roles variable directory
+
+- name: ipmi power management of a remote machine, state context required 
+  ipmi_power:
+    name: "{{ ipmi_host }}"
+    port: "{{ ipmi_host_port }}"
+    user: "{{ item.user }}"
+    password: "{{ item.password }}"
+    state: "{{ item.state }}"       # select 1 of [ on, off, shutdown, reset, boot ( if off then on, else reset ) ]
+    timeout: "{{item.timeout}}"     # default 300, 

@@ -3,6 +3,12 @@
 # the sandbox tasks reference README.md
 - hosts: all
   become: true
-  gather_facts: true
+  gather_facts: false
   roles:
     - sandy.init
+
+- hosts: all:!controller
+  become: true
+  gather_facts: false
+  roles:
+    - sandy.init_remotes

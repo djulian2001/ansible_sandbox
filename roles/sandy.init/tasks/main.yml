@@ -5,7 +5,7 @@
   with_items: "{{ inventory_hostname }}"
 
 # install dependencies
-- name: install needed network manager libs
+- name: install yum packages as present
   yum:
     name: '{{ item }}'
     state: present
@@ -37,7 +37,6 @@
     conn_name: '{{ item.ifname }}:{{ item.conn_name }}'     # This will be the name of the file
     ifname: '{{ item.ifname }}'
     ip4: '{{ item.ip4 | ipaddr }}'
-    # ip4: '{{ ansible_host }}'
     gw4: '{{ item.gw4 | ipaddr }}'
     state: present
     autoconnect: yes
@@ -48,3 +47,18 @@
 
 # configure a service restart using the handlers
 #  add notify:  label_space to the roles handlers
+- name: ping the gateway
+  command: /bin/ping -c1 "{{ item }}"
+  ignore_errors: yes
+  with_items:
+    - "{{ gateway }}"
+
+- name: sshd configure not to allow root login
+  lineinfile:
+    path: "/etc/ssh/sshd_config"
+    owner: root
+    mode: 0600
+    state: present
+    regexp: '^PermitRootLogin\s*yes'
+    line: "#PermitRootLogin yes"
+    backrefs: yes
