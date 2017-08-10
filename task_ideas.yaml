@@ -6,7 +6,7 @@
 # http://docs.ansible.com/ansible/latest/selinux_module.html
 # https://people.centos.org/arrfab/Events/Loadays-2014/managing%20selinux%20with%20your%20cfgmgmt%20solution.pdf
 - selinux:
-	state: disabled
+  state: disabled
 
 
 

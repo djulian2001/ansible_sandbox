@@ -1,11 +1,16 @@
+
 [databases]
 database.rc.asu.edu ansible_host=192.168.34.61 tenant_ip=192.168.90.2/24 external_ip=192.168.80.2/24 storage_ip=192.168.70.2/24
 
 [applications]
 application.rc.asu.edu ansible_host=192.168.34.62 tenant_ip=192.168.90.3/24 external_ip=192.168.80.3/24 storage_ip=192.168.70.3/24
 
+#[remotes:children]
+#databases
+#applications
+
+
 [controller]
 controller.rc.asu.edu ansible_host=192.168.34.60 ansible_connection=local tenant_ip=192.168.90.4/24 external_ip=192.168.80.4/24 storage_ip=192.168.70.4/24
-
 
 # gateway: tenant_ip=192.168.90.1/24 external_ip=192.168.80.1/24 storage_ip=192.168.70.1/24

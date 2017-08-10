@@ -1,7 +1,12 @@
 ---
 # playbook to kick of the controller role
 # odd behavior, when running this role in the init.yaml playbook, it failed first run, second run passed.
+#   reason is that the controller node if it uses a python lib not a part of the core ansible install will
+#   not be available until the next run, if installed.  Best to add these dependencies to 
+#   the ansible_boostrapping playbook.
 - hosts: controller
   become: true
-  roles:
-    - sandy.controller
+  tasks:
+  - name: Run the role sandy.controller
+    include_role:
+      name: sandy.controller

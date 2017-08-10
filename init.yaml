@@ -4,11 +4,15 @@
 - hosts: all
   become: true
   gather_facts: false
-  roles:
-    - sandy.init
+  tasks:
+  - name: Run the sandy.init role on all nodes
+    include_role:
+      name: sandy.init
 
 - hosts: all:!controller
   become: true
   gather_facts: false
-  roles:
-    - sandy.init_remotes
+  tasks:
+  - name: Run sandy.init_remotes role on all the non controller nodes
+    include_role:
+      name: sandy.init_remotes

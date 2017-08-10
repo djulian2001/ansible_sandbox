@@ -2,3 +2,4 @@
 # vars file for roles/sandy.init_remotes
 yum_packages:
   - firefox.x86_64
+  - epel-release
