@@ -1,0 +1,47 @@
+---
+# tasks file for sandy.init_docker
+
+# install required packages centos only..
+#  IF there is a way to verify the repo a pa
+# - name: Ensure old versions of Docker are not installed.
+#   package:
+#     name: '{{ item }}'
+#     state: absent
+#   with_items:
+#     - docker
+#     - docker-common
+#     - docker-engine
+
+- name: enable the required repositories
+  yum_repository:
+    name: "{{ item.name }}"
+    description: "{{ item.desc }}"
+    baseurl: "{{ item.url }}"
+    enabled: yes
+    gpgcheck: "{{ item.gpg_check }}"
+    gpgkey: "{{ item.gpg }}"
+    retries: 5
+    state: present
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - "{{ yum_repos }}"
+
+- name: install the yum packages
+  yum:
+    name: "{{ item }}"
+    state: latest
+    update_cache: yes
+  with_items:
+    - "{{ yum_packages }}"
+
+- name: Add service to boot, ensure service starts
+  service:
+    name: docker
+    enabled: yes
+
+- name: ensure that the docker service has started
+  service:
+    name: docker
+    state: started

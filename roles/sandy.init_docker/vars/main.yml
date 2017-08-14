@@ -1,0 +1,16 @@
+---
+# vars file for sandy.init_docker
+# sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+yum_packages:
+  - yum-utils
+  - device-mapper-persistent-data
+  - lvm2
+  - docker-engine
+
+yum_repos:
+  - name: dockerproject_repo
+    desc: this is the offical centos 7 docker repository
+    url: https://yum.dockerproject.org/repo/main/centos/7/
+    gpg: https://yum.dockerproject.org/gpg
+    gpg_check: yes
+

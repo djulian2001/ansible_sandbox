@@ -1,0 +1,9 @@
+--- # galaxy_docker.yaml 
+
+- hosts: controller,applications
+  become: true
+  tasks:
+    - name: Run the init_docker role
+      include_role:
+        name: sandy.init_docker
+        
