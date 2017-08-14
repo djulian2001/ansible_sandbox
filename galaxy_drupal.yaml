@@ -1,0 +1,33 @@
+---
+# lets try and leverage from a 3rd party role (or 7)
+- hosts: applications
+  become: true
+  vars_files:
+    - vars/galaxy/main.yaml
+  tasks:
+    # reference download_drupal_roles.sh for how these roles were installed.
+    # the use of this approach gives me the ability to add variable specific pointers, by role.
+
+    # This role needs to be run on the database node, but with added configurations
+    - name: external role for mysql, by Jeff Geerling from ansible-galaxy
+      include_role:
+        name: geerlingguy.mysql
+
+    - name: external role for apache, by Jeff Geerling from ansible-galaxy
+      include_role:
+        name: geerlingguy.apache
+    - name: external role for php, by Jeff Geerling from ansible-galaxy
+      include_role:
+        name: geerlingguy.php
+    - name: external role for php-mysql, by Jeff Geerling from ansible-galaxy
+      include_role:
+        name: geerlingguy.php-mysql
+    - name: external role for composer, by Jeff Geerling from ansible-galaxy
+      include_role:
+        name: geerlingguy.composer
+    - name: external role for drush, by Jeff Geerling from ansible-galaxy
+      include_role:
+        name: geerlingguy.drush
+    - name: external role for drupal, by Jeff Geerling from ansible-galaxy
+      include_role:
+        name: geerlingguy.drupal

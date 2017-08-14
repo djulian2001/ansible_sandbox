@@ -1,0 +1,66 @@
+---
+
+# FOLLOWING for galaxy_drupal.yaml
+# drupal_install_site: true
+# drupal_build_composer_project: true
+# drupal_composer_install_dir: "/var/www/drupal"
+# drupal_core_path: "{{ drupal_composer_install_dir }}/web"
+# drupal_domain: "example.com"
+# composer_path: /usr/local/bin/composer
+# php_packages_state: latest
+# php_opcache_enable: "0"
+# php_packages:
+#   - php
+#   - php-cli
+#   - php-common
+#   - php-devel
+#   - php-fpm
+#   - php-gd
+#   - php-imap
+#   # my change
+#   # - php-imap.x86_64
+#   - php-ldap
+#   - php-mbstring
+#   # - php-opcache
+#   - php-pdo
+#   - php-pear
+#   - php-pecl-apcu
+#   - php-xml
+#   - php-xmlrpc
+
+# php_source_configure_command: >
+#   ./configure
+#   --prefix={{ php_source_install_path }}
+#   --with-config-file-path={{ php_conf_paths | first }}
+#   --enable-mbstring
+#   --enable-zip
+#   --enable-bcmath
+#   --enable-pcntl
+#   --enable-ftp
+#   --enable-exif
+#   --enable-calendar
+#   --enable-pdo
+#   --enable-sysvmsg
+#   --enable-sysvsem
+#   --enable-sysvshm
+#   --enable-wddx
+#   --with-curl
+#   --with-mcrypt
+#   --with-iconv
+#   --with-gmp
+#   --with-pspell
+#   --with-gd
+#   --with-jpeg-dir=/usr
+#   --with-png-dir=/usr
+#   --with-zlib-dir=/usr
+#   --with-xpm-dir=/usr
+#   --with-freetype-dir=/usr
+#   --enable-gd-native-ttf
+#   --enable-gd-jis-conv
+#   --with-openssl
+#   --with-pdo-mysql=/usr
+#   --with-gettext=/usr
+#   --with-zlib=/usr
+#   --with-bz2=/usr
+#   --with-recode=/usr
+#   --with-mysqli=/usr/bin/mysql_config

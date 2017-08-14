@@ -1,1 +1,3 @@
 # add ignore stuff as needed
+roles/galaxy/*
+!roles/galaxy/.gitkeep
