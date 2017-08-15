@@ -15,6 +15,7 @@
 - name: enable the required repositories
   yum_repository:
     name: "{{ item.name }}"
+    # description: "{{ item.desc }}, {{ ansible_managed }}"
     description: "{{ item.desc }}"
     baseurl: "{{ item.url }}"
     enabled: yes
@@ -31,10 +32,23 @@
 - name: install the yum packages
   yum:
     name: "{{ item }}"
-    state: latest
-    update_cache: yes
+    state: present
+    # update_cache: yes
   with_items:
     - "{{ yum_packages }}"
+
+- name: install pip packages
+  pip:
+    name: "{{ item.name }}"
+    state: present
+    # state: absent
+    # version: "{{ item.version }}"
+      # versions becomes important for ci cd, specific to application deployment 
+    # virtualenv: # if needed reference pip module for the details
+  with_items:
+    - "{{ pip_packages }}"
+
+
 
 - name: Add service to boot, ensure service starts
   service:
@@ -45,3 +59,6 @@
   service:
     name: docker
     state: started
+
+
+

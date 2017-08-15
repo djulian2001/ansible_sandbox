@@ -6,11 +6,16 @@ yum_packages:
   - device-mapper-persistent-data
   - lvm2
   - docker-engine
+  - python-pip
 
 yum_repos:
-  - name: dockerproject_repo
-    desc: this is the offical centos 7 docker repository
+  - name: ce_dockerproject_repo
+    desc: "Offical centos 7 docker repository"
     url: https://yum.dockerproject.org/repo/main/centos/7/
     gpg: https://yum.dockerproject.org/gpg
     gpg_check: yes
 
+pip_packages:
+  - name: docker-compose
+    version: 1.15.0
+  

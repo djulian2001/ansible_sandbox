@@ -2,6 +2,10 @@
 [databases]
 database.rc.asu.edu ansible_host=192.168.34.61 tenant_ip=192.168.90.2/24 external_ip=192.168.80.2/24 storage_ip=192.168.70.2/24
 
+#[database.rc.asu.edu:vars]
+#tenant_ip=192.168.90.2/24 external_ip=192.168.80.2/24 storage_ip=192.168.70.2/24
+
+
 [applications]
 application.rc.asu.edu ansible_host=192.168.34.62 tenant_ip=192.168.90.3/24 external_ip=192.168.80.3/24 storage_ip=192.168.70.3/24
 
