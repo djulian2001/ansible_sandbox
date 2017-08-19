@@ -1,0 +1,4 @@
+---
+# defaults file for sandy.postgresql
+# looking at variables as a way to 'clear' a service
+postgresql_state: present

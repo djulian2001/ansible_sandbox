@@ -1,0 +1,40 @@
+---
+# vars file for sandy.postgresql
+-- include: pg_vault
+# Organizational practice:
+#   - do we configure the repo, or leverage from external
+#   - the postgresql community provides an rpm that manage postgres repos
+#   - VS the following style:
+
+# yum_repos:
+#   - name: pgdg96  # or whatever we call it
+#     desc: "Offical centos 7 postgresql repository"
+#     url: https://download.postgresql.org/pub/repos/yum/srpms/9.6/redhat/rhel-$releasever-$basearch
+#
+
+# this configurs 4 repos ['pgdg96','pgdg96-source','pgdg96-updates-testing','pgdg96-source-updates-testing']
+yum_postgresql_rpm_repos: "https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-7-x86_64/pgdg-centos96-9.6-3.noarch.rpm"
+
+yum_packages:
+  - postgresql96
+  - postgresql96-server
+
+pip_modules:
+  - psycopg2
+
+
+postgres_user: 
+  - name: postgres
+    group: postgres
+    password: 
+
+
+
+# add the list of user to the os
+os_users:
+  - name: 
+
+# add a list of system users
+# -- include: pg_database_users.yaml
+pg_users:
+  - name:

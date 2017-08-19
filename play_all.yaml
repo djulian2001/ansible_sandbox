@@ -3,4 +3,5 @@
 - include: init_controller.yaml
 - include: init.yaml
 # - include: galaxy_drupal.yaml
+- include: init_postgresql.yaml
 - include: init_docker.yaml

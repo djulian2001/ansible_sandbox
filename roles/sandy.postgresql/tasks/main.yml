@@ -1,0 +1,47 @@
+---
+# tasks file for sandy.postgresql
+
+# Ansible Role Usage Thoughts:  removing services and installing services, core responsibility
+# 
+# - include: install.yml
+#   when: postgresql_state|default('present') == "present"
+# 
+# - include: uninstall.yml
+#   when: postgresql_state|default('present') == "absent"
+
+# OR in the main.yml file, use a filter with default variable
+
+- name: Add and configure the postgresql yum repositories ( replaces yum_repository tasks )
+  yum:
+    name: "{{ yum_postgresql_rpm_repos }}"
+    state: "{{ postgresql_state | default(' postgresql_state ') }}"
+    update_cache: yes
+
+- name: install yum packages as present
+  yum:
+    name: '{{ item }}'
+    state: "{{ postgresql_state | default(' postgresql_state ') }}"
+  with_items:
+    - "{{ yum_packages }}"
+
+# others did install some python packages
+- name: add the postgres user
+  user: 
+    name: "{{ item.name }}"
+    comment: "{{ item.comment }}"
+    group: "{{ item.group }}"
+    state: "{{ postgresql_state | default(' postgresql_state ') }}"
+  with_items:
+    - "{{ pgdb_user }}"
+
+# user created without using the user module, just the yum behavior or the postgresql rpm?
+# postgres:x:26:26:PostgreSQL Server:/var/lib/pgsql:/bin/bash
+
+# add the postgres user ? already added
+
+# interesting fact, service module becomes the systemd if on the host...
+- name: enable the postgresql database to restart on boot
+  systemd:
+    name: postgresql-9.6
+    enabled: yes
+

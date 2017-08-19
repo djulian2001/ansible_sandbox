@@ -1,0 +1,52 @@
+---
+- name: When using templates 
+  url: https://www.servermanaged.it/ansible/ansible-simple-rollback-strategy/
+
+- examples:
+  # interesting pattern:
+
+# vars in path_to_vars.yaml ...  
+  config_vars:
+    [ { src: "value.j2", domain: "value", state: "present", owner: "root", etc ... },
+      { src: "value.j2", domain: "value", state: "present", owner: "root", etc ... },
+      { src: "value.j2", domain: "value", state: "present", owner: "root", etc ... },
+      { src: "value.j2", domain: "value", state: "present", owner: "root", etc ... }
+    ]
+# VS:
+  config_vars:
+    - src: "config.config.j2"       # role/templates or other place
+      domain: "config_domain"
+      state: "present"
+      owner: "root"
+      etc ...
+    - src: "config.config.j2"       # role/templates or other place
+      domain: "config_domain"
+      state: "present"
+      owner: "root"
+      etc ...
+
+
+  - include_vars: "path_to_vars.yaml"
+  - name: create a form using a template
+    template:
+      src: "{{ item.src }}"
+      dest: /etc/config/{{ item.domain }}.conf
+      owner: "{{ item.owner }}"
+      group: "{{ item.group }}"
+      mode: 0644
+      backup: no
+    with_items:
+      - "{{ config_vars }}"  # OR config_vars  will either work if you use the above var formats?
+    when: item.state != 'absent'
+    nodify:
+      - roles service handler
+  # this
+  - name: remove unused configured templates ...
+    file:
+      path: /etc/config/{{ item.domain }}.conf
+      state: "{{ item.state }}"
+      with_items:
+        - config_vars
+      when: item.state == 'absent'
+      nodify:
+        - roles service handler
