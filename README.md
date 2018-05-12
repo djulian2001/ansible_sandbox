@@ -1,4 +1,4 @@
-rc_ansible_sandbox
+ansible_sandbox
 ==================
 [RCPM-25] Create Ansible plays, roles, playbooks: follow tasks outlined in story
 
@@ -24,7 +24,7 @@ End Point:
 This is the systems spec sheet that will 
 Short Summary
 -------------
-	• 5 server sandbox on XEN
+	• 5 server sandbox on vagrant vms
 	• All CentOS 7.3 - updated 5/26/17
 	• Asurite auth configured on controller node  (requires fortinet vpn to access)
 		○ As deployed SSH as root is allowable
