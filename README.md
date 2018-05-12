@@ -34,7 +34,7 @@ Short Summary
 		○ Default gateway = 10.107.22.1
 		○ Netmask = 255.255.255.0
 		○ DNS1 = 10.107.28.14
-		○ DNS2 = 129.219.17.5
+		○ DNS2 = 172.168.xx.xx
 	
 network details:
 ----------------
